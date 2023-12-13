@@ -1053,9 +1053,6 @@ static const struct codepair {
 
 static int getIndex(unsigned int keysym)
 {
-    if(keysym == 0x20ac)
-        return 0x20ac;
-
     static const struct
     {
         short start;
@@ -1132,6 +1129,9 @@ uint32_t keysymMap(unsigned int keysym)
 
 uint32_t keysymLinear(unsigned int keysym)
 {
+    if(keysym == 0x20ac)
+        return 0x20ac;
+	
     if((keysym >= 0x0020 && keysym <= 0x007e) ||
        (keysym >= 0x00a0 && keysym <= 0x00ff)) //LATIN1 mapped 1:1..
         return keysym;
