@@ -214,7 +214,10 @@ static const unsigned short ucstable[] =
     0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
     0x0000, 0x0000, '*'   , '+'   , ','   , '-'   , '.'   , '/'   ,
     0x0030, 0x0031, 0x0032, 0x0033, 0x0034, 0x0035, 0x0036, 0x0037,
-    0x0038, 0x0039, 0x0000, 0x0000, 0x0000, '='
+    0x0038, 0x0039, 0x0000, 0x0000, 0x0000, '=',
+
+    ///fallback element
+    0xffff
 };
 
 static const struct codepair {
@@ -1053,6 +1056,7 @@ static const struct codepair {
 
 static int getIndex(unsigned int keysym)
 {
+    static const size_t length = sizeof(ucstable) / sizeof(short);
     static const struct
     {
         short start;
@@ -1091,7 +1095,7 @@ static int getIndex(unsigned int keysym)
             return keysym - rangetuples[mid].offset;
     }
 
-    return -1;
+    return length - 1;
 }
 
 uint32_t keysymMap(unsigned int keysym)
